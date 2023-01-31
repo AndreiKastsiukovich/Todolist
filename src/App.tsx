@@ -5,9 +5,8 @@ import {Todolist} from "./Todolist";
 function App() {
 
     const shapka1 = 'What to learn-1'
-    const shapka11 = 'What to learn-11'
     const shapka2 = 'What to learn-2'
-    const shapka22 = 'What to learn-22'
+
 
     const tasks1 = [
         { id: 1, title: "HTML&CSS", isDone: true },
@@ -16,7 +15,7 @@ function App() {
         { id: 4, title: "ReactJS", isDone: false }
     ]
     const tasks2 = [
-        { id: 1, title: "Hello world", isDone: true },
+        { id: 1, title: "Hello World", isDone: true },
         { id: 2, title: "I am Happy", isDone: false },
         { id: 3, title: "Yo", isDone: false }
     ]
