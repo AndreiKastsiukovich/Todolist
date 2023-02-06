@@ -1,29 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {TaskType, Todolist} from './Todolist';
+
+export type ButtonNameType = 'All' | 'Active' | 'Completed'
 
 function App() {
 
-    const shapka1 = 'What to learn-1'
-    const shapka2 = 'What to learn-2'
-
-
-    const tasks1 = [
+    let[tasks1,SetTasks1] = useState<Array<TaskType>>([
         { id: 1, title: "HTML&CSS", isDone: true },
         { id: 2, title: "JS", isDone: true },
         { id: 3, title: "ReactJS", isDone: false },
         { id: 4, title: "ReactJS", isDone: false }
-    ]
-    const tasks2 = [
-        { id: 1, title: "Hello World", isDone: true },
-        { id: 2, title: "I am Happy", isDone: false },
-        { id: 3, title: "Yo", isDone: false }
-    ]
+    ])
+
+
+    const removeTask = (id: number) => {
+        SetTasks1(tasks1.filter((el) => el.id !== id))
+    }
+
+    let [filterTask, setFilterTask] = useState<ButtonNameType>('All')
+
+    const filteringTasks = (buttonName: ButtonNameType) => {
+        setFilterTask(buttonName)
+    }
+
+    let filteredTasks = tasks1
+    if (filterTask === 'Active') {
+        filteredTasks = tasks1.filter(el => el.isDone)
+    }
+    if (filterTask === 'Completed') {
+        filteredTasks = tasks1.filter(el => !el.isDone)
+    }
+
 
     return (
         <div className="App">
-            <Todolist newShapka={shapka1} tasks={tasks1}/>
-            <Todolist shapka={shapka2} tasks={tasks2}/>
+            <Todolist title="What to learn"
+                      tasks={tasks1}
+                      removeTask={removeTask}
+                      filteringTasks={filteringTasks}
+            />
         </div>
     );
 }
