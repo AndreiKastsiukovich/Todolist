@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 
-
-export type ButtonNameType = 'All'| 'Active' |'Completed'
+export type ButtonNameType = 'All'|'Active'|'Completed'
 
 function App() {
 
@@ -11,41 +10,39 @@ function App() {
         { id: 1, title: "HTML&CSS", isDone: true },
         { id: 2, title: "JS", isDone: true },
         { id: 3, title: "ReactJS", isDone: false },
-        { id: 4, title: "ReactJS", isDone: false },
-        { id: 5, title: "ReactJS", isDone: false }
+        { id: 4, title: "Redux", isDone: false }
     ])
 
-    let removeTask = tasks1
     const removeTasks = (id:number) => {
-        removeTask = tasks1.filter((el)=>el.id !== id)
-        SetTasks(removeTask)
+        let removingTasks = tasks1.filter((el)=>el.id !== id)
+            SetTasks(removingTasks)
     }
 
-    let [buttonName,SetButtonName] = useState<ButtonNameType>('All')
 
-    const filterTask = (buttonName:ButtonNameType) => {
-        SetButtonName(buttonName)
-    }
+    let [buttonName,SetButtonName] = useState('All')
 
-    let filterTasks = tasks1
+    let filteringTasks = tasks1
 
-    if (buttonName === 'All') {
-        filterTasks = tasks1
-    }
-    if (buttonName === 'Active') {
-        filterTasks = tasks1.filter((el) => el.isDone == false)
-    }
-    if (buttonName === 'Completed') {
-        filterTasks = tasks1.filter((el) => el.isDone == true)
-    }
+     const filterTasks = (buttonName:ButtonNameType) => {
+         SetButtonName(buttonName)
+     }
 
+     if (buttonName === 'All'){
+         filteringTasks = tasks1
+     }
+     if (buttonName === 'Completed'){
+         filteringTasks = tasks1.filter((el)=>el.isDone == true)
+     }
+    if (buttonName === 'Active'){
+        filteringTasks = tasks1.filter((el)=>el.isDone == false)
+    }
 
     return (
         <div className="App">
             <Todolist title="What to learn"
-                      tasks={filterTasks}
+                      tasks={filteringTasks}
                       removeTasks={removeTasks}
-                      filterTask={filterTask}
+                      filterTasks={filterTasks}
             />
         </div>
     );
