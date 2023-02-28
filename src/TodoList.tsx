@@ -75,7 +75,7 @@ const TodoList: FC<TodoListPropsType> = (props) => {
                 {/*<button onClick={addTask}>+</button>*/}
                 <input
                     value={title}
-                    placeholder="Please, enter title!!!"
+                    placeholder="Please, enter title"
                     onChange={changeLocalTitle}
                     onKeyDown={onKeyDownAddTask}
                     className={inputErrorClasses}
