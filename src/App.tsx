@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList, {TaskType} from "./TodoList";
 import {v1} from "uuid";
-import todoList from "./TodoList";
 import {AddItemForm} from "./AddItemForm";
-
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {Menu} from "@mui/icons-material";
 
 // CRUD
 // R - filter, sort, search
@@ -126,29 +126,60 @@ function App (): JSX.Element {
         const filteredTasks: Array<TaskType> = getFilteredTasks(tasks[tl.id], tl
             .filter)
         return (
-            <TodoList
-                key={tl.id}
-                todoListId={tl.id}
-                title={tl.title}
-                tasks={filteredTasks}
-                filter={tl.filter}
+            <Grid item>
+                <Paper>
+                    <TodoList
+                        key={tl.id}
+                        todoListId={tl.id}
+                        title={tl.title}
+                        tasks={filteredTasks}
+                        filter={tl.filter}
 
-                removeTask={removeTask}
-                addTask={addTask}
-                changeTaskStatus={changeTaskStatus}
-                changeTaskTitle={changeTaskTitle}
-                changeTodoListTitle={changeTodoListTitle}
+                        removeTask={removeTask}
+                        addTask={addTask}
+                        changeTaskStatus={changeTaskStatus}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodoListTitle={changeTodoListTitle}
 
-                changeTodoListFilter={changeTodoListFilter}
-                removeTodoList={removeTodoList}
-            />
+                        changeTodoListFilter={changeTodoListFilter}
+                        removeTodoList={removeTodoList}
+                    />
+                </Paper>
+            </Grid>
         )
     })
     //UI:
     return (
         <div className="App">
-            <AddItemForm maxLengthUserMessage={15} addNewItem={addTodolist}/>
-            {todoListsComponents}
+
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                       sx={{mr: 2}}
+                    >
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                        TodoLists
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+
+            <Container fixed>
+                <Grid container sx={{p:'10px 0'}}>
+                    <AddItemForm maxLengthUserMessage={15} addNewItem={addTodolist}/>
+                </Grid>
+
+                <Grid container spacing={3}>
+                    {todoListsComponents}
+                </Grid>
+            </Container>
+
         </div>
     );
 }
