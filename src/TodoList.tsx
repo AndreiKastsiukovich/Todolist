@@ -4,8 +4,7 @@ import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
-import {Button} from "@mui/material";
-import {CheckBox} from "./componemts/CheckBox";
+import {Button, Checkbox} from "@mui/material";
 
 
 export type TaskType = {
@@ -40,10 +39,6 @@ export function Todolist(props: PropsType) {
         props.changeTodolistTitle(props.id, title);
     }
 
-    const onChangeHandlerCallBack = (id:string,isDone:boolean) => {
-        props.changeTaskStatus(id,isDone,props.id)
-    }
-
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
     const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
@@ -59,26 +54,21 @@ export function Todolist(props: PropsType) {
             {
                 props.tasks.map(t => {
                     const onClickHandler = () => props.removeTask(t.id, props.id)
-
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         let newIsDoneValue = e.currentTarget.checked;
                         props.changeTaskStatus(t.id, newIsDoneValue, props.id);
                     }
-
                     const onTitleChangeHandler = (newValue: string) => {
                         props.changeTaskTitle(t.id, newValue, props.id);
                     }
 
 
                     return <div key={t.id} className={t.isDone ? "is-done" : ""}>
-                       {/* <Checkbox
+                        <Checkbox
                             checked={t.isDone}
                             color="primary"
                             onChange={onChangeHandler}
-                        />*/}
-                        {/* eslint-disable-next-line react/jsx-no-undef */}
-
-                        <CheckBox callBack={(isDone)=>onChangeHandlerCallBack(t.id,isDone)} isDone={t.isDone}/>
+                        />
 
                         <EditableSpan value={t.title} onChange={onTitleChangeHandler} />
                         <IconButton onClick={onClickHandler}>
